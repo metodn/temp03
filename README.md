@@ -27,12 +27,22 @@ Responses are checked for anomalies:
 
 ## Files
 
+### Core Implementation
 - `MAKER_CONCEPTS.md` - Comprehensive knowledge extraction from the paper
 - `towers_of_hanoi.py` - Towers of Hanoi game implementation (benchmark task)
-- `maker.py` - MAKER system implementation with voting and red-flagging
+- `maker.py` - MAKER system implementation for Towers of Hanoi
 - `test_maker.py` - Comprehensive test suite
 - `demo.py` - Simple demonstration script
 - `requirements.txt` - Python dependencies
+
+### Generalized Framework (NEW!)
+- `MAKER_GENERALIZATION.md` - How to apply MAKER to ANY sequential task
+- `maker_base.py` - Generalized MAKER implementation for any task
+- `.claude/skills/maker-methodology/` - Claude Skill for using MAKER
+  - `SKILL.md` - Main skill instructions
+  - `TASK_TEMPLATE.py` - Template for creating new MAKER tasks
+  - `EXAMPLES.md` - Concrete examples for different task types
+- `example_sudoku.py` - Example: Sudoku solver using generalized MAKER
 
 ## Setup
 
@@ -105,6 +115,110 @@ print(f"Success: {success}")
 print(f"Moves: {len(moves)}")
 print(f"Expected: {2**num_disks - 1}")
 ```
+
+## Generalizing MAKER to Any Task
+
+The MAKER approach can be applied to **any sequential task**! The framework has been generalized to work with:
+
+- Constraint satisfaction problems (Sudoku, N-Queens, scheduling)
+- Sequential planning (route planning, workflow orchestration)
+- Code generation (multi-file refactoring, test generation)
+- Mathematical reasoning (proof construction, equation solving)
+- Data pipelines (ETL workflows, data cleaning)
+
+### Quick Start: Using the Generalized Framework
+
+```python
+from maker_base import GeneralizedMAKER, MAKERConfig, DecomposableTask
+
+# 1. Define your task by implementing DecomposableTask
+class YourTask(DecomposableTask):
+    def get_possible_actions(self):
+        # Return list of valid actions from current state
+        pass
+
+    def apply_action(self, action):
+        # Apply action and update state
+        pass
+
+    def is_complete(self):
+        # Check if task is done
+        pass
+
+    def format_for_agent(self, step_num):
+        # Format state as prompt for voting agents
+        pass
+
+    # ... implement other required methods
+
+# 2. Create task instance
+task = YourTask(problem_instance)
+
+# 3. Configure and solve with MAKER
+config = MAKERConfig(model="gpt-4o-mini", task_type="your_task")
+maker = GeneralizedMAKER(config, task)
+success, actions, stats = maker.solve()
+```
+
+### Resources for Adaptation
+
+- **`MAKER_GENERALIZATION.md`** - Complete guide to generalizing MAKER
+- **`TASK_TEMPLATE.py`** - Copy-paste template for new tasks
+- **`EXAMPLES.md`** - Concrete examples for different domains
+- **`example_sudoku.py`** - Working Sudoku solver example
+- **`.claude/skills/maker-methodology/`** - Claude Skill that teaches MAKER methodology
+
+### Claude Skill: MAKER Methodology
+
+A Claude Code skill is included that teaches Claude how to apply MAKER to any task:
+
+```bash
+# The skill is in .claude/skills/maker-methodology/
+# Claude will automatically use it when you ask about:
+# - Solving multi-step problems
+# - Sequential planning tasks
+# - Tasks requiring many decisions
+# - Constraint satisfaction problems
+```
+
+When activated, Claude will:
+1. Identify if your task is MAKER-compatible
+2. Help you define the task interface
+3. Set up voting and red-flagging
+4. Generate the implementation
+5. Guide you through testing
+
+### Example: Sudoku Solver
+
+```python
+from maker_base import GeneralizedMAKER, MAKERConfig
+from example_sudoku import SudokuTask, create_easy_sudoku
+
+# Create puzzle
+puzzle = create_easy_sudoku()
+task = SudokuTask(puzzle)
+
+# Solve with MAKER
+config = MAKERConfig(model="gpt-4o-mini", verbose=True)
+maker = GeneralizedMAKER(config, task)
+success, actions, stats = maker.solve()
+
+# Sudoku solved with zero errors!
+```
+
+### Task Suitability Checklist
+
+MAKER works best for tasks that are:
+- ✅ Sequential (steps must happen in order)
+- ✅ Decomposable (can break into single-step decisions)
+- ✅ Verifiable (can check if each step is valid)
+- ✅ Long (>10 steps where errors accumulate)
+
+MAKER is NOT ideal for:
+- ❌ Creative/open-ended generation
+- ❌ Tasks requiring holistic understanding
+- ❌ Very short tasks (<10 steps)
+- ❌ Continuous optimization problems
 
 ## Configuration
 
