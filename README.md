@@ -60,6 +60,11 @@ Responses are checked for anomalies:
 - `scenario6_distributed_deployment.py` - Distributed system rolling deployment
 - `COMPLEX_SCENARIOS.md` - Complete breakdown of scenarios 4-6
 
+**Search & Exploration:**
+- `rubiks_cube.py` - Complete 3×3×3 Rubik's Cube implementation
+- `rubiks_cube_maker_solver.py` - MAKER-based cube solver with heuristics
+- `scenario7_rubiks_cube_solver.py` - Rubik's Cube solver scenario
+
 ## Setup
 
 ### 1. Install Dependencies
@@ -344,6 +349,45 @@ python scenario6_distributed_deployment.py
 - Real-world impact metrics
 - Comparison tables
 - Implementation guide for similar complex tasks
+
+### Search & Exploration Problem
+
+#### 7. Rubik's Cube Solver (`scenario7_rubiks_cube_solver.py`)
+**Problem**: Solve a scrambled Rubik's Cube using heuristic-guided exploration
+
+**Complexity**: 43 quintillion possible states, 18 moves per state, heuristic-guided search
+
+Features:
+- State space exploration (not just dependency resolution!)
+- Heuristic evaluation (score each move)
+- Voting-based move selection
+- Loop avoidance (track visited states)
+- Progressive solving approach
+- Solutions in 30-100 moves (vs optimal 20 moves)
+
+Why this is interesting:
+- Demonstrates MAKER on SEARCH problems
+- Shows heuristic guidance + voting
+- Compares with optimal solvers (Kociemba's algorithm)
+- Proves MAKER versatility beyond dependency graphs
+
+```bash
+# Full cube implementation
+python rubiks_cube.py
+
+# MAKER solver
+python rubiks_cube_maker_solver.py
+
+# Complete scenario with tests
+python scenario7_rubiks_cube_solver.py
+```
+
+**Files:**
+- `rubiks_cube.py` - Complete 3×3×3 cube implementation with all 18 moves
+- `rubiks_cube_maker_solver.py` - MAKER-based solver with heuristics
+- `scenario7_rubiks_cube_solver.py` - Tests, comparisons, demonstrations
+
+**Note**: MAKER finds solutions (not necessarily optimal). For optimal solving (<20 moves), use Kociemba's algorithm. MAKER demonstrates voting-based search in large state spaces.
 
 ### Task Suitability Checklist
 
