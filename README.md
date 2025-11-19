@@ -44,11 +44,21 @@ Responses are checked for anomalies:
   - `EXAMPLES.md` - Concrete examples for different task types
 
 ### Working Examples
+
+**Basic Examples:**
 - `example_sudoku.py` - Sudoku solver using generalized MAKER
+
+**Real-World Scenarios:**
 - `scenario1_dependency_resolution.py` - Build order/dependency resolution
 - `scenario2_infrastructure_provisioning.py` - Cloud infrastructure provisioning
 - `scenario3_interview_scheduling.py` - Interview scheduling with constraints
-- `REAL_WORLD_SCENARIOS.md` - Complete breakdown of all 3 scenarios
+- `REAL_WORLD_SCENARIOS.md` - Complete breakdown of scenarios 1-3
+
+**Complex Scenarios (Advanced):**
+- `scenario4_api_test_execution.py` - API integration test suite with dependencies
+- `scenario5_database_migration.py` - Production database migration with data preservation
+- `scenario6_distributed_deployment.py` - Distributed system rolling deployment
+- `COMPLEX_SCENARIOS.md` - Complete breakdown of scenarios 4-6
 
 ## Setup
 
@@ -267,6 +277,73 @@ python scenario3_interview_scheduling.py
 - Complexity analysis
 - Cost comparisons
 - Implementation guides
+
+### Complex Real-World Scenarios (ADVANCED)
+
+Three highly complex scenarios demonstrating MAKER at production scale:
+
+#### 4. API Integration Test Execution (`scenario4_api_test_execution.py`)
+**Problem**: Execute comprehensive API test suite with dependencies, data sharing, and parallel execution
+
+**Complexity**: 13 tests, 23 dependencies, parallel execution (max 3), retry logic, shared state
+
+Features:
+- Test dependencies (test B needs test A's output)
+- Data sharing between tests (user ID from create used in update)
+- Parallel execution constraints
+- Flaky test retry logic
+- Critical test failure handling
+- Setup/teardown management
+
+```bash
+python scenario4_api_test_execution.py
+```
+
+#### 5. Database Schema Migration (`scenario5_database_migration.py`)
+**Problem**: Migrate production database while preserving all data and maintaining zero downtime
+
+**Complexity**: 16 steps, 1.5M rows affected, backup points, rollback capability, risk levels 1-5
+
+Features:
+- Zero data loss requirement
+- Multi-stage data transformation
+- Foreign key dependency management
+- Backup before risky operations
+- Rollback capability at any point
+- Continuous data validation
+- 10-minute downtime limit
+
+```bash
+python scenario5_database_migration.py
+```
+
+#### 6. Distributed System Deployment (`scenario6_distributed_deployment.py`)
+**Problem**: Deploy 5 microservices with rolling updates, health checks, and automatic rollback
+
+**Complexity**: 25+ steps, 5 services, 19 instances, canary deployments, multi-stage health checks
+
+Features:
+- Multi-service dependencies
+- Rolling updates (gradual instance replacement)
+- Canary deployments for critical services
+- Health checks after each stage
+- Database migration coordination
+- Load balancer reconfiguration
+- Automatic rollback on failure
+- Zero downtime requirement
+
+```bash
+python scenario6_distributed_deployment.py
+```
+
+**See `COMPLEX_SCENARIOS.md` for complete analysis** of these advanced scenarios with:
+- Detailed complexity breakdown
+- Multi-dimensional dependency graphs
+- Rollback orchestration strategies
+- Health check coordination
+- Real-world impact metrics
+- Comparison tables
+- Implementation guide for similar complex tasks
 
 ### Task Suitability Checklist
 
