@@ -42,7 +42,13 @@ Responses are checked for anomalies:
   - `SKILL.md` - Main skill instructions
   - `TASK_TEMPLATE.py` - Template for creating new MAKER tasks
   - `EXAMPLES.md` - Concrete examples for different task types
-- `example_sudoku.py` - Example: Sudoku solver using generalized MAKER
+
+### Working Examples
+- `example_sudoku.py` - Sudoku solver using generalized MAKER
+- `scenario1_dependency_resolution.py` - Build order/dependency resolution
+- `scenario2_infrastructure_provisioning.py` - Cloud infrastructure provisioning
+- `scenario3_interview_scheduling.py` - Interview scheduling with constraints
+- `REAL_WORLD_SCENARIOS.md` - Complete breakdown of all 3 scenarios
 
 ## Setup
 
@@ -205,6 +211,62 @@ success, actions, stats = maker.solve()
 
 # Sudoku solved with zero errors!
 ```
+
+### More Real-World Scenarios
+
+Three additional complete implementations demonstrate MAKER's versatility:
+
+#### 1. Dependency Resolution & Build Order (`scenario1_dependency_resolution.py`)
+**Problem**: Determine build order for software project with module dependencies
+
+**Use Cases**: npm/pip dependencies, Make/Gradle builds, Terraform resources, Kubernetes deployments
+
+**Complexity**: 12-module project has ~1,000 valid build orders
+
+```bash
+python scenario1_dependency_resolution.py
+```
+
+#### 2. Infrastructure Provisioning (`scenario2_infrastructure_provisioning.py`)
+**Problem**: Provision cloud resources in correct order with parallel limits
+
+**Use Cases**: Terraform/CloudFormation, Kubernetes setup, multi-region deployments, CI/CD environments
+
+**Complexity**: 20-resource infrastructure has ~10^6 valid provisioning orders
+
+Features:
+- Parallel provisioning (max 3 simultaneous)
+- Cost optimization ($654/hour total)
+- Resource dependencies (VPC → Subnet → Database → App)
+
+```bash
+python scenario2_infrastructure_provisioning.py
+```
+
+#### 3. Interview Scheduling (`scenario3_interview_scheduling.py`)
+**Problem**: Schedule interviews satisfying interviewer availability, room capacity, and candidate preferences
+
+**Use Cases**: Technical interviews, medical appointments, meeting rooms, university courses, court hearings
+
+**Complexity**: 5 interviews with 8 time slots each = ~32,000 possible schedules
+
+Features:
+- Hard constraints (availability, capacity)
+- Soft constraints (candidate preferences)
+- Multi-person panel requirements
+- Optimization (maximize preference satisfaction)
+
+```bash
+python scenario3_interview_scheduling.py
+```
+
+**See `REAL_WORLD_SCENARIOS.md` for complete breakdowns** of all three scenarios with:
+- Detailed problem analysis
+- Step-by-step MAKER decomposition
+- Agent prompt examples
+- Complexity analysis
+- Cost comparisons
+- Implementation guides
 
 ### Task Suitability Checklist
 
